@@ -1,0 +1,63 @@
+@echo off
+cls
+color a
+chcp 65001 >nul
+
+:a
+cls
+color D
+echo Hello
+pause
+echo Choose an Option:
+echo - Perplexity     1
+echo - Thag Goat      2
+echo - Shat GPT       3
+echo - Funny name ai  4
+set /p q="Select: "
+if "%q%"=="1" goto option1
+if "%q%"=="2" goto option2
+if "%q%"=="3" goto option3
+if "%q%"=="4" goto option4
+echo Invalid selection, please try again.
+pause
+goto a
+
+:option1
+cls
+echo Fair choice!
+start https://www.perplexity.ai
+pause
+goto a
+
+:option2
+cls
+echo Good choice! Just so you know:
+echo - Sigma: Calls you "sexy daddy"
+echo - Gojo: Freaky Gojo vibes
+echo - XXXTen: XXXTentacion vibes
+echo - Juice: Juice WRLD vibes
+echo - Luffy: Luffy from One Piece vibes
+pause
+start https://thag.zapier.app
+pause
+goto a
+
+:option3
+cls
+echo No.
+pause
+echo F*** you.
+pause
+echo Choose a better option.
+pause
+goto a
+
+:option4
+cls
+echo You might be wondering what the name is...
+pause 
+echo It is "myninja."
+pause 
+start https://www.myninja.ai
+pause 
+goto a
