@@ -1,4 +1,4 @@
-(function () {
+(function() {
     const SIDEBAR_ID = 'perplexity-sidebar';
     const TOGGLE_BTN_ID = 'perplexity-toggle';
     const URL = 'https://www.perplexity.ai/';
@@ -8,7 +8,6 @@
     let sidebarVisible = localStorage.getItem('perplexitySidebarVisible') === 'true';
     let sidebarWidth = parseInt(localStorage.getItem('perplexitySidebarWidth')) || 400;
 
-    // Check if the sidebar already exists to avoid duplication
     if (document.getElementById(SIDEBAR_ID)) {
         return;
     }
@@ -26,7 +25,7 @@
                 box-shadow: -2px 0 5px rgba(0,0,0,0.2);
                 transition: right 0.3s ease;
                 z-index: 9999;
-                font-family: sans-serif; /* Add a default font */
+                font-family: sans-serif;
             }
             #${SIDEBAR_ID} iframe {
                 width: 100%;
@@ -40,15 +39,15 @@
                 bottom: 0;
                 width: 5px;
                 cursor: ew-resize;
-                background-color: #ccc; /* Make handle more visible */
+                background-color: #ccc;
             }
             #${SIDEBAR_ID} .close-btn {
                 position: absolute;
                 right: 10px;
                 top: 10px;
                 cursor: pointer;
-                font-size: 20px; /* Enlarge the close button */
-                color: #555; /* Adjust color for better visibility */
+                font-size: 20px;
+                color: #555;
             }
             #${SIDEBAR_ID} .title {
                 padding: 10px;
@@ -62,7 +61,7 @@
                 right: 20px;
                 bottom: 20px;
                 z-index: 10000;
-                padding: 10px 20px; /* Wider button */
+                padding: 10px 20px;
                 background: #007bff;
                 color: white;
                 border: none;
@@ -92,7 +91,7 @@
 
         const title = document.createElement('div');
         title.className = 'title';
-        title.textContent = 'Penda Hero';
+        title.textContent = 'Perplexity AI';
 
         const closeBtn = document.createElement('span');
         closeBtn.textContent = '×';
@@ -104,13 +103,11 @@
 
         const iframe = document.createElement('iframe');
         iframe.src = URL;
-        iframe.onload = () => {
-            loadingOverlay.style.display = 'none';
-        };
+        iframe.style.visibility = 'hidden';
 
         const loadingOverlay = document.createElement('div');
         loadingOverlay.className = 'loading-overlay';
-        loadingOverlay.textContent = 'Loading Penda Hero...'; // Changed to Penda Hero
+        loadingOverlay.textContent = 'Loading Perplexity AI...';
 
         sidebar.appendChild(title);
         sidebar.appendChild(closeBtn);
@@ -120,13 +117,18 @@
 
         document.body.appendChild(sidebar);
 
+        iframe.onload = () => {
+            iframe.style.visibility = 'visible';
+            loadingOverlay.style.display = 'none';
+        };
+
         initResizing(resizeHandle);
     }
 
     function createToggleButton() {
         const btn = document.createElement('button');
         btn.id = TOGGLE_BTN_ID;
-        btn.textContent = 'Toggle Penda Hero'; // Changed to Penda Hero
+        btn.textContent = 'Toggle Perplexity AI';
         btn.onclick = toggleSidebar;
         document.body.appendChild(btn);
     }
@@ -165,7 +167,6 @@
         handle.addEventListener('mousedown', startResizing);
     }
 
-    // Initialization
     createStyles();
     createSidebar();
     createToggleButton();
