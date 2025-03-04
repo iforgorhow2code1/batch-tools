@@ -1,12 +1,12 @@
 (function() {
     const SIDEBAR_ID = 'perplexity-sidebar';
     const TOGGLE_BTN_ID = 'perplexity-toggle';
-    const URL = 'https://www.perplexity.ai/';
-    const MIN_WIDTH = 300;
-    const MAX_WIDTH = 800;
+    const PERPLEXITY_URL = 'https://www.perplexity.ai/';
+    const MIN_WIDTH = 200;
+    const MAX_WIDTH = 400;
 
     let sidebarVisible = localStorage.getItem('perplexitySidebarVisible') === 'true';
-    let sidebarWidth = parseInt(localStorage.getItem('perplexitySidebarWidth')) || 400;
+    let sidebarWidth = parseInt(localStorage.getItem('perplexitySidebarWidth')) || 300;
 
     if (document.getElementById(SIDEBAR_ID)) {
         return;
@@ -25,12 +25,7 @@
                 box-shadow: -2px 0 5px rgba(0,0,0,0.2);
                 transition: right 0.3s ease;
                 z-index: 9999;
-                font-family: sans-serif;
-            }
-            #${SIDEBAR_ID} iframe {
-                width: 100%;
-                height: calc(100% - 60px);
-                border: none;
+                font-family: Arial, sans-serif;
             }
             #${SIDEBAR_ID} .resize-handle {
                 position: absolute;
@@ -56,6 +51,20 @@
                 text-align: center;
                 font-weight: bold;
             }
+            #${SIDEBAR_ID} .content {
+                padding: 20px;
+                text-align: center;
+            }
+            #${SIDEBAR_ID} .open-perplexity-btn {
+                padding: 10px 20px;
+                background: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                margin-top: 20px;
+            }
             #${TOGGLE_BTN_ID} {
                 position: fixed;
                 right: 20px;
@@ -68,18 +77,6 @@
                 border-radius: 5px;
                 cursor: pointer;
                 font-size: 16px;
-            }
-            .loading-overlay {
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(255,255,255,0.8);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 18px;
             }
         `;
         document.head.appendChild(style);
@@ -101,26 +98,23 @@
         const resizeHandle = document.createElement('div');
         resizeHandle.className = 'resize-handle';
 
-        const iframe = document.createElement('iframe');
-        iframe.src = URL;
-        iframe.style.visibility = 'hidden';
+        const content = document.createElement('div');
+        content.className = 'content';
+        content.innerHTML = '<p>Click the button below to open Perplexity AI in a new window.</p>';
 
-        const loadingOverlay = document.createElement('div');
-        loadingOverlay.className = 'loading-overlay';
-        loadingOverlay.textContent = 'Loading Perplexity AI...';
+        const openBtn = document.createElement('button');
+        openBtn.className = 'open-perplexity-btn';
+        openBtn.textContent = 'Open Perplexity AI';
+        openBtn.onclick = () => window.open(PERPLEXITY_URL, '_blank');
+
+        content.appendChild(openBtn);
 
         sidebar.appendChild(title);
         sidebar.appendChild(closeBtn);
         sidebar.appendChild(resizeHandle);
-        sidebar.appendChild(iframe);
-        sidebar.appendChild(loadingOverlay);
+        sidebar.appendChild(content);
 
         document.body.appendChild(sidebar);
-
-        iframe.onload = () => {
-            iframe.style.visibility = 'visible';
-            loadingOverlay.style.display = 'none';
-        };
 
         initResizing(resizeHandle);
     }
