@@ -1,4 +1,5 @@
 @echo off
+color d
 :x
 cls 
 chcp 65001 >nul
