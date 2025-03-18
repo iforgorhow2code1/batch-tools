@@ -1,0 +1,48 @@
+@echo off
+mode con: cols=40 lines=10
+title Multi-Tool
+color d
+
+:menu
+cls
+echo GenTOOOOOLLLLLOL
+echo 1. Generate Discord Nitro Codes
+echo 2. Exit
+
+set /p choice=Enter your choice: 
+
+if "%choice%"=="1" goto generate_nitro_codes
+if "%choice%"=="2" goto exit
+goto menu
+
+:generate_nitro_codes
+cls
+echo Generating Discord Nitro Codes...
+
+setlocal enabledelayedexpansion
+
+set "characters=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+set "num_codes=100"
+set "code_length=16"
+
+:generate_loop
+for /l %%i in (1,1,%num_codes%) do (
+    set "code="
+    for /l %%j in (1,1,%code_length%) do (
+        set /a "rand=!random! %% 62"
+        for %%k in (!rand!) do set "code=!code!!characters:~%%k,1!"
+    )
+    echo https://discord.gift/!code!
+)
+
+echo.
+set /p more_codes=Do you want to generate 100 more codes? (Y/N): 
+if /i "%more_codes%"=="Y" goto generate_loop
+
+endlocal
+
+pause
+goto menu
+
+:exit
+exit
