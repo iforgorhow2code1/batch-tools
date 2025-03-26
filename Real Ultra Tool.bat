@@ -786,6 +786,7 @@ pause
 goto x
 
 :Web
+cls
 @echo off
 title website dos
 color d
